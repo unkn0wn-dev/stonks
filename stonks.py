@@ -111,23 +111,23 @@ def stocks():
 def ip_info(ip):
     try:
         response = DbIpCity.get(ip, api_key='free')
-    except ip2geotools.errors.InvalidRequestError:
+    except:
         print(F.RED + "IP Address Invalid")
         return
-    print(f"\n\nIP: {response.ip_address}\nCountry: {response.country}\nRegion: {response.region}\nCity: {response.city}\nLatitude: {response.latitude}\nLongitude: {response.longitude}\n")
-    print("\n\nEnter \"q\" to go back to menu or \"op\" to open predicted location in Google Maps.", end="\n\n\n\n\n\n")
+    print(F.CYAN + f"\n\nIP: {response.ip_address}\nCountry: {response.country}\nRegion: {response.region}\nCity: {response.city}\nLatitude: {response.latitude}\nLongitude: {response.longitude}\n")
+    print(F.YELLOW + "\n\nEnter \"q\" to go back to menu or \"op\" to open predicted location in Google Maps.", end="\n\n\n\n\n\n")
     while True:
         inp = input()
         if inp == "q":
             break
         elif inp == "op":
-            webbrowser.open(f"https://www.google.com/maps/search/{response.latitude},{response.longitude}", new=0)
+            webbrowser.open(f"https://www.google.com/maps/search/{response.latitude},{response.longitude}", new=1)
             break
 
 #Main
 def main():
+    global stock_chart
     try:
-        global stock_chart
         print("""\033[33mOptions:
         
           \033[94m[1] - Display a chart of popular stocks
