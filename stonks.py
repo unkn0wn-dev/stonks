@@ -1,4 +1,5 @@
 #Imports
+from ip2geotools.databases.noncommercial import DbIpCity
 from bs4 import BeautifulSoup
 from colorama import Fore as F
 from time import sleep
@@ -109,35 +110,15 @@ def stocks():
 
 
 def ip_info(ip):
-    if input():
-        pass
-    try:
-        reader = geoip2.database.Reader("GeoLite2-City.mmdb")
-        print(F.GREEN + "[√]Database Loaded")
-    except FileNotFoundError:
-        print(F.RED + "[!]Could not open database; Exiting application")
-        exit(1)
-    #subprocess.run("clear")
-    response = reader.city(ip)
-    print(F.LIGHTBLUE_EX + """
-    ISO Code: {iso}
-    Country Name: {country}
-    State: {state}
-    City: {city}
-    Postal Code: {post}
-    Latitude: {lat}
-    Longitude: {long}
-    Network: {net}""".format(iso=response.country.iso_code, country=response.country.name,
-                             state=response.subdivisions.most_specific.name, city=response.city.name,
-                             post=response.postal.code, lat=response.location.latitude, long=response.location.longitude,
-                             net=response.traits.network))
+    response = DbIpCity.get(ip, api_key='free')
+    print(f"\n\nIP: {response.ip_address}\nCountry: {response.country}\nRegion: {response.region}\nCity: {response.city}\nLatitude: {response.latitude}\nLongitude: {response.longitude}\n")
     print("\n\nEnter \"q\" to go back to menu or \"op\" to open predicted location in Google Maps.", end="\n\n\n\n\n\n")
     while True:
         inp = input()
         if inp == "q":
             break
         elif inp == "op":
-            webbrowser.open(f"https://www.google.com/maps/search/{response.location.latitude},{response.location.longitude}", new=0)
+            webbrowser.open(f"https://www.google.com/maps/search/{response.latitude},{response.longitude}", new=0)
             break
 
 #Main
@@ -173,14 +154,8 @@ def main():
         else:
             print(F.YELLOW + "[!]IP information is approximate.  Please use IPv6 for more accurate results.")
             print(F.CYAN + "Press enter to continue...")
-            if input():
-                pass
             ip_addr = input(F.GREEN + "Enter an Internet Protocol (IP) Address[IPv4 or IPv6]> ")
-            try:
-                ip_info(ip_addr)
-            except ValueError:
-                print(F.RED + "IP Address invalid")
-                sleep(1)
+            ip_info(ip_addr)
         main()
     except KeyboardInterrupt:
         print(F.RED + "\n[!]Exiting..." + F.RESET)
