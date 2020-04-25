@@ -8,8 +8,7 @@ import webbrowser
 import pandas
 import functools
 import subprocess
-import geoip2.database
-#Uses Maxmind GeoLite2-City Database for IP Location
+
 
 #Compatible with most *nix systems only.  Please leave feedback if compatability for Windows is wanted.
 #Should I make a function to check internet connection or just let an error arise?
@@ -110,7 +109,11 @@ def stocks():
 
 
 def ip_info(ip):
-    response = DbIpCity.get(ip, api_key='free')
+    try:
+        response = DbIpCity.get(ip, api_key='free')
+    except ip2geotools.errors.InvalidRequestError:
+        print(F.RED + "IP Address Invalid")
+        return
     print(f"\n\nIP: {response.ip_address}\nCountry: {response.country}\nRegion: {response.region}\nCity: {response.city}\nLatitude: {response.latitude}\nLongitude: {response.longitude}\n")
     print("\n\nEnter \"q\" to go back to menu or \"op\" to open predicted location in Google Maps.", end="\n\n\n\n\n\n")
     while True:
