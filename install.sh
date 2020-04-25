@@ -13,4 +13,4 @@ elif [ "$1" = "update" ]; then
 	fi
 else
 	echo -e "Usage:\n\t./install.sh install (install dependencies)\n\t./install.sh update (update repository)\n"
-fi
+fi 
