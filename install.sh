@@ -2,7 +2,7 @@ if [ "$1" = "install" ]; then
 	echo -e "\e[93m[!]\e[36mInstalling required packages...\e[0m"
 	apt-get update && apt-get upgrade
 	apt-get install python3
-	pip3 install bs4 pandas requests geoip2 colorama ip2geotools
+	pip3 install bs4 pandas requests colorama ip2geotools
 elif [ "$1" = "update" ]; then
 	echo -e "\e[93m[!]\e[36mFetching newest repository...\e[0m"
 	git pull
