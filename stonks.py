@@ -121,7 +121,7 @@ def ip_info(ip):
         if inp == "q":
             break
         elif inp == "op":
-            webbrowser.open(f"https://www.google.com/maps/search/{response.latitude},{response.longitude}", new=1)
+            webbrowser.open(f"https://www.google.com/maps/search/{response.latitude},{response.longitude}", new=0)
             break
 
 #Main
