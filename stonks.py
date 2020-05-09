@@ -75,19 +75,8 @@ def stocks():
     #BeautifulSoup Object
     soup = BeautifulSoup(site.content, "html.parser")
 
-    #Process to go achieve a list of stocks !!!SUGGESTIONS FOR EFICIENCY!!!
-    html = list(soup.children)[3]
-    body = list(html.children)[3]
-    div = list(body.children)[5]
-    div2 = list(div.children)[9]
-    div3 = list(div2.children)[1]
-    div4 = list(div3.children)[3]
-    div5 = list(div4.children)[1]
-    div6 = list(div5.children)[3]
-    div7 = list(div6.children)[3]
-    div8 = list(div7.children)[1]
-    table = list(div8.children)[1]
-    tbody = list(table.children)[3]
+    #Find list of stocks
+    tbody = soup.find("tbody", {"class": "tv-data-table__tbody"})
     stocks = tbody.find_all("tr")
     chart = {"Symbol": [], "Company": [], "Price Per Share": [], "Change(%)": [], "Change(Points)": []}
 
