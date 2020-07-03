@@ -27,8 +27,8 @@ print("""
 print(F.BLUE + "[!]Enlarge window as much as possible for easier observations" + F.RESET)
 sleep(2)
 
-subprocess.run("clear")
-#Variables
+#subprocess.run("clear")
+Variables
 stock_chart = {"Value": False, "Data": False}
 #Functions
 def internet_test():
