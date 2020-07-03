@@ -27,7 +27,7 @@ print("""
 print(F.BLUE + "[!]Enlarge window as much as possible for easier observations" + F.RESET)
 sleep(2)
 
-#subprocess.run("clear")
+subprocess.run("clear")
 #Variables
 stock_chart = {"Value": False, "Data": False}
 #Functions
